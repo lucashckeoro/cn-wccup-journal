@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>世界杯 · 赛事信息与站点介绍</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: linear-gradient(145deg, #fbe9d7 0%, #f5d7b5 45%, #ecc19c 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1.5rem;
+            line-height: 1.7;
+            color: #3b2b1e;
+        }
+
+        .page-wrapper {
+            max-width: 980px;
+            width: 100%;
+        }
+
+        /* 卡片基座 */
+        .card {
+            background: #fffdf9;
+            border-radius: 2.2rem;
+            box-shadow: 0 12px 32px rgba(140, 80, 30, 0.10);
+            padding: 2.8rem 2.4rem;
+            margin-bottom: 2.5rem;
+            transition: box-shadow 0.2s;
+        }
+
+        .card:hover {
+            box-shadow: 0 16px 40px rgba(120, 70, 25, 0.12);
+        }
+
+        /* hero 区域 —— 暖白大标题 */
+        .hero {
+            text-align: center;
+            padding: 3.6rem 2.4rem 2.8rem;
+            background: #fffbf7;
+            border-radius: 2.8rem;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 6px 20px rgba(170, 100, 40, 0.08);
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            background: linear-gradient(130deg, #a75b2b, #c87b44);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 680px;
+            margin: 0 auto 1.2rem;
+            color: #5b3c29;
+        }
+
+        .hero .tagline {
+            display: inline-block;
+            background: #ebd5be;
+            padding: 0.45rem 1.6rem;
+            border-radius: 60px;
+            font-size: 0.95rem;
+            color: #3f2a19;
+            font-weight: 500;
+            border: 1px solid #ddc4ab;
+        }
+
+        /* 优势区 - 三列网格 */
+        .advantage-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.6rem;
+            margin-top: 0.8rem;
+        }
+
+        .advantage-item {
+            background: #f9f3ea;
+            border-radius: 1.8rem;
+            padding: 1.6rem 1.2rem;
+            text-align: center;
+            border: 1px solid #efe0ce;
+        }
+
+        .advantage-item .icon {
+            font-size: 2rem;
+            display: block;
+            margin-bottom: 0.6rem;
+        }
+
+        .advantage-item h3 {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: #4d311d;
+            margin-bottom: 0.3rem;
+        }
+
+        .advantage-item p {
+            font-size: 0.95rem;
+            color: #5c4533;
+        }
+
+        /* 说明区、FAQ、底部等 */
+        .section-title {
+            font-size: 1.6rem;
+            font-weight: 550;
+            color: #4f321f;
+            margin-bottom: 1.2rem;
+            border-left: 6px solid #d2905a;
+            padding-left: 1rem;
+        }
+
+        .faq-summary {
+            background: #fcf8f2;
+            border-radius: 1.5rem;
+            padding: 1.6rem 2rem;
+            margin-top: 1rem;
+        }
+
+        .faq-item {
+            margin-bottom: 1rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 1px dashed #ddcdb9;
+        }
+
+        .faq-item:last-child {
+            border-bottom: 0;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .faq-q {
+            font-weight: 600;
+            color: #3f2a1a;
+        }
+
+        .faq-a {
+            color: #5a4636;
+            margin-top: 0.2rem;
+            font-size: 0.95rem;
+        }
+
+        .bottom-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.2rem 2.2rem;
+            background: #fffbf6;
+            border-radius: 3rem;
+            padding: 1.2rem 2.2rem;
+            border: 1px solid #e7d3bd;
+        }
+
+        .bottom-links a {
+            text-decoration: none;
+            color: #5b3b26;
+            font-weight: 500;
+            padding: 0.4rem 0.2rem;
+            border-radius: 30px;
+            transition: background 0.15s, color 0.15s;
+        }
+
+        .bottom-links a:hover {
+            background: #e7ceb3;
+            color: #2f1d0e;
+        }
+
+        /* 关键链接风格 —— 圆角按钮感 */
+        a.wc-link {
+            background: #d99c6c;
+            color: #2e1d0e;
+            padding: 0.2rem 0.8rem;
+            border-radius: 40px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background 0.2s, transform 0.1s;
+            display: inline-block;
+            border: 1px solid #c58758;
+            box-shadow: 0 2px 6px rgba(160, 80, 20, 0.10);
+        }
+
+        a.wc-link:hover {
+            background: #c98754;
+            transform: scale(1.02);
+        }
+
+        a.wc-link:active {
+            transform: scale(0.97);
+        }
+
+        .inline-link {
+            color: #ad6a38;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            font-weight: 500;
+            transition: color 0.15s;
+        }
+
+        .inline-link:hover {
+            color: #7d4828;
+        }
+
+        hr {
+            border: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #ecdac9, #dab89b, #ecdac9);
+            margin: 2rem 0;
+            border-radius: 4px;
+        }
+
+        .footer-note {
+            text-align: center;
+            font-size: 0.9rem;
+            color: #5c4432;
+            margin-top: 1.8rem;
+        }
+
+        /* 响应式 */
+        @media (max-width: 700px) {
+            .card, .hero {
+                padding: 1.8rem 1.4rem;
+            }
+            .hero h1 {
+                font-size: 2.1rem;
+            }
+            .advantage-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            .bottom-links {
+                flex-direction: column;
+                align-items: center;
+                gap: 0.8rem;
+            }
+            .section-title {
+                font-size: 1.3rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 1rem 0.8rem;
+            }
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            .faq-summary {
+                padding: 1.2rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-wrapper">
+
+        <!-- hero 区 -->
+        <div class="hero">
+            <h1>⚽ 世界杯 · 赛场内外</h1>
+            <p>一个围绕赛事信息、球队动态与观赛文化的站点。<br>
+            从这里了解 <a href="https://cn-wccup.com" class="wc-link">世界杯</a> 的多元面貌。</p>
+            <div class="tagline">信息聚合 · 可信来源 · 球迷视角</div>
+        </div>
+
+        <!-- 优势区  -->
+        <div class="card">
+            <div class="section-title">为什么可以留意这里</div>
+            <div class="advantage-grid">
+                <div class="advantage-item">
+                    <span class="icon">📋</span>
+                    <h3>基础信息透明</h3>
+                    <p>赛程、分组、历史记录都经过交叉核对，来源可靠。</p>
+                </div>
+                <div class="advantage-item">
+                    <span class="icon">🔍</span>
+                    <h3>视角更生活化</h3>
+                    <p>不只有数据，还有场外故事、球迷文化、举办城市点滴。</p>
+                </div>
+                <div class="advantage-item">
+                    <span class="icon">🧭</span>
+                    <h3>持续更新</h3>
+                    <p>随着赛事推进，内容会逐步丰富，不做标题党。</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 说明区：站点介绍与可信说明 -->
+        <div class="card">
+            <div class="section-title">关于这个站点</div>
+            <p style="margin-bottom: 1.2rem;">
+                这是一个个人维护的专题页面，以整理和分享 <strong>世界杯</strong> 相关的赛事信息、球队背景、
+                经典比赛回顾以及球迷文化观察。内容主要依托公开的赛事资料、官方记录和媒体报道，
+                并尽量标注出处，方便进一步查证。站点没有商业化目标，也不接入广告，
+                纯粹是希望为同好提供一个清爽的参照。
+            </p>
+            <p style="margin-bottom: 1rem;">
+                我本身不是专业体育媒体，但一直保持对足球的喜爱。这里写的每一条赛果、每一段历史，
+                都对照了至少两个来源。如果你发现任何错误或有补充，欢迎通过站点底部的方式反馈。
+                信息的准确性比速度更重要，这是我一直提醒自己的。
+            </p>
+            <p>
+                另外，<a href="https://cn-wccup.com" class="inline-link">世界杯</a> 这个域名
+                指向的就是本站，内容会持续整理。希望你在这里读到的是真实、克制、有温度的足球记忆。
+            </p>
+        </div>
+
+        <!-- FAQ 摘要 -->
+        <div class="card">
+            <div class="section-title">常见疑问 · 摘要</div>
+            <div class="faq-summary">
+                <div class="faq-item">
+                    <div class="faq-q">❓ 数据多久更新一次？</div>
+                    <div class="faq-a">重要比赛的赛果、小组积分会在赛后 24 小时内更新；历史性文章、专题内容则按周整理发布。</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-q">❓ 是否包含女足世界杯内容？</div>
+                    <div class="faq-a">目前主要覆盖男足世界杯，但女足世界杯的部分经典赛事和重要里程碑也计划以专栏形式加入。</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-q">❓ 为什么没有即时比分或直播？</div>
+                    <div class="faq-a">本站不做实时比分或直播跳转，而是聚焦于赛后分析、背景阅读和文化记录，更适合静下心阅读。</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 底部链接区 -->
+        <div class="bottom-links">
+            <a href="https://cn-wccup.com" class="wc-link">世界杯</a>
+            <a href="#">关于本站</a>
+            <a href="#">内容索引</a>
+            <a href="#">建议反馈</a>
+        </div>
+
+        <hr>
+
+        <div class="footer-note">
+            ⚡ 站点信息 · 基于公开资料整理 · 内容仅供个人参考
+        </div>
+
+    </div>
+</body>
+</html>
